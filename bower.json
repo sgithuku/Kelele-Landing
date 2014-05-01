@@ -1,0 +1,10 @@
+{
+  "name": "kelelelanding",
+  "version": "0.0.0",
+  "dependencies": {
+    "foundation": "~5.1.1",
+    "jquery": "~2.1.0",
+    "modernizr": "~2.7.1"
+  }
+}
+
