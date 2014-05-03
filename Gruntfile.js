@@ -283,6 +283,10 @@ module.exports = function(grunt) {
         'shell:git-commit-build'
     ]);
 
+      // load the grunt-shell task:
+      grunt.loadNpmTasks('grunt-shell');
+
+
     grunt.registerTask('heroku', ['build', 'shell:heroku']);
 
     grunt.registerTask('publish', function (target) {
