@@ -210,9 +210,15 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.build %>',
+                    dest: '<%= yeoman.dist %>',
+                    cwd: 'heroku',
+                    rename: function (dest, src) {
+                        var path = require('path');
+                        if (src === 'distpackage.json') {
+                            return path.join(dest, 'package.json');
+                        }
+                        return path.join(dest, src);
+                    },
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
@@ -227,6 +233,17 @@ module.exports = function(grunt) {
                 }]
             }
         },
+        shell: {
+              'git-add-dist': {
+                command: 'git add '
+              },
+              'git-commit-build': {
+                command: 'git commit -am"build"'
+              },
+              'heroku': {
+                    command: 'git push heroku master'
+                  }
+          },
         concurrent: {
             build: [
                 'sass:build',
@@ -261,8 +278,12 @@ module.exports = function(grunt) {
         'uglify',
         'copy:build',
         'filerev',
-        'usemin'
+        'usemin',
+        'shell:git-add-dist',
+        'shell:git-commit-build'
     ]);
+
+    grunt.registerTask('heroku', ['build', 'shell:heroku']);
 
     grunt.registerTask('publish', function (target) {
         grunt.task.run('build');
