@@ -210,7 +210,7 @@ module.exports = function(grunt) {
             build: {
                 files: [{
                     expand: true,
-                    dest: '<%= yeoman.dist %>',
+                    dest: '<%= yeoman.build %>',
                     cwd: 'heroku',
                     rename: function (dest, src) {
                         var path = require('path');
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
         },
         shell: {
               'git-add-dist': {
-                command: 'git add '
+                command: 'git add .'
               },
               'git-commit-build': {
                 command: 'git commit -am"build"'
